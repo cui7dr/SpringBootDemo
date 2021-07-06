@@ -1,0 +1,13 @@
+# 应用名称
+spring:
+  application:
+  name: SpringBootDemo
+
+# 应用服务 web 访问端口
+server:
+  port: 8081
+
+#定义变量在 java 类中获取
+name: 张三
+age: 22
+birthday: 2000/01/01
