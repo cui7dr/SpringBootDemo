@@ -2,10 +2,8 @@ package com.cui.spr_boot_demo.controller;
 
 import com.cui.spr_boot_demo.dao.UserJpa;
 import com.cui.spr_boot_demo.entity.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,5 +29,30 @@ public class UserController {
     public User Get(@RequestParam("id") Long id) {
         return this.userJpa.findById(id).get();
     }
+
+    @GetMapping("save")//保存数据
+    public void Save(@RequestBody User user) {// 使用 @RequestBody 接收数据
+        userJpa.save(user);
+    }
+
+    @GetMapping("delete")// 删除数据
+    public void Delete(@RequestParam("id") Long id) {
+        userJpa.deleteById(id);
+    }
+
+    //新增方法
+    @GetMapping("deleteByName")// 根据名称删除
+    public void DeleteByName(@RequestParam("name") String name) {
+        this.userJpa.deleteByName(name);
+    }
+
+    @GetMapping("update")// 更新数据
+    public void Update(@RequestParam("id")Long id,@RequestParam("name")String name){
+        User user=this.userJpa.findById(id).get();// 先根据 id 将数据 load 出来
+        user.setName(name);// 更新数据
+        this.userJpa.save(user);
+    }
+
+    //自定义查询
 
 }
