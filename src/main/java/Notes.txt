@@ -1,0 +1,36 @@
+.yaml 文件和 .properties 文件的区别
+  .yaml 文件以 : 标志变量级别，并进行相应的缩进，文件编排更清晰（冒号后有空格；
+  .properties 文件用 . 标志变量级别。
+
+User 中 @GeneratedValue 注解的 strategy 属性提供四种值：
+  -AUTO: 主键由程序控制，是默认选项，不设置即此项；
+  -IDENTITY: 主键由数据库自动生成，即采用数据库 ID 自增长的方式，Oracle 不支持这种方式；
+  -SEQUENCE: 通过数据库的序列产生主键，通过 @SequenceGenerator 注解指定序列名，mysql 不支持这种方式；
+  -TABLE: 通过特定的数据库表产生主键，使用该策略可是使应用更易于数据库移植。
+
+JPA 的常用方法
+  1.首先需要定义一个接口，并继承自 JpaRepository，并在该接口类上使用 @Repository 注解，告知 SpringBoot 这是一个 Repository 类；
+  2.在外部调用使用 @Resource 将该接口注入；
+  3.可以使用该 JPA 接口中很多自定义的方法，比如，代码提示框中“加粗”方法为 JPA 中自己定义的方法；
+  4.如果方法不够业务使用，则可以在 JPA 中自己写方法，强大的 JPA 语法几乎不需要写 sql 语句，当然业务需要也可以自己定义；
+  5.如果要自己写 sql，则在 JPA 上自已定义方法，但是不需要自己实现，并使用 @Query 注解该方法，在 @Query 内使用 value 写 sql 或 hql，如果写的是 sql 则需要使用 nativeQuery = true;
+  6.自己写的 jpa 方法，并使用了 @Query 注解，但是里面执行的是 update 或者 delete 的 sql 语句的话需要使用 @ Modifying 注解。
+
+@Transactional 注解
+  1.该注解添加在实现类或者接口的实现方法上，而不能放在接口中；
+  2.该注解只对 public 方法生效。
+
+@Transactional 的属性
+  1.name：当在配置文件中有多个 TransactionManager，可以用该属性指定选择哪个事务管理器；
+  2.propagation：事务的传播行为，默认值为 REQUIRED；//这个用的最广的需求就是业务出错了，但是日志必须提交到数据库，参考”UserController.save2 -> LogService.saveLog"
+  3.isolation：事务的隔离度，默认采用 DEFAULT；
+  4.timeout：事务的超时时间，默认值为 -1，如果超过该时间限制但事务还没有完成，则自动回滚事务；
+  5.read-only：指定事务是否为只读事务，默认值为 false，为了忽略那些不需要事务的方法，比如读取数据，可以设置为 true；
+  6.rollback-for：用于指定能够触发事务回滚的异常类型，如果有多个异常类型需要指定，各类型之间可以通过逗号分隔；
+  7.no-rollback-for：抛出 no-rollback-for 指定的异常类型，不回滚事务。
+
+  备注：rollback-for：只有执行的异常才会回滚。
+    1.将 UserController 手动 throw new Exception("test")，再请求，发现事务提交了；
+    2.将注解修改为 @Transactional(rollbackFor = Exception.class)，再请求，发现事务回滚并没有提交；
+    3.@Transactional 默认只在遇到”运行时异常“和”Error“时才会回滚，非运行时异常不回滚，即 Exception 的子类中，除了 RuntimeException 及其子类，其他的类默认不回滚；
+    4.rollbackFor 的属性可以解决这个问题，rollbackFor = Exception.class 表示 Exception 及其子类的异常都会出发回滚，同时不影响 Error 的回滚。
