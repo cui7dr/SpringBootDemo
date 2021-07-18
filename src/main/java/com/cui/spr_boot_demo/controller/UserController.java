@@ -2,7 +2,8 @@ package com.cui.spr_boot_demo.controller;
 
 import com.cui.spr_boot_demo.dao.UserJpa;
 import com.cui.spr_boot_demo.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cui.spr_boot_demo.service.UserService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,6 +20,8 @@ public class UserController {
 
     @Resource
     private UserJpa userJpa;
+    @Resource
+    private UserService userService;
 
     @GetMapping("findAll")// 查找所有数据
     public List<User> findAll() {
@@ -57,5 +60,31 @@ public class UserController {
     @GetMapping("findByAge")// 根据年龄查找数据
     public List<User> findByAge(@RequestParam("age")Integer age){
         return this.userJpa.findByAge(age);
+    }
+
+    /**
+     * Transaction 事务
+     */
+    @Transactional// 声明式事务管理中使用的注解
+    @GetMapping("save1")
+    public String save1(){
+        User user=new User();
+        user.setDptId(1L);
+        user.setName("Save1Test");
+        user.setAge(22);
+        user.setEmail("save1@a.com");
+        user.setHeadImg("a");
+        this.userJpa.save(user);
+        //模拟发生了异常
+        System.out.println(1/0);//在不使用 @Transactional 时，后台报错，数据依然被保存，使用后数据不保存
+        return "ok";
+    }
+
+
+    @GetMapping("save2")
+    public String save2() throws Exception{
+        //模拟业务操作
+        this.userService.saveBiz();
+        return "ok";
     }
 }
