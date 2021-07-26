@@ -34,3 +34,28 @@ JPA 的常用方法
     2.将注解修改为 @Transactional(rollbackFor = Exception.class)，再请求，发现事务回滚并没有提交；
     3.@Transactional 默认只在遇到”运行时异常“和”Error“时才会回滚，非运行时异常不回滚，即 Exception 的子类中，除了 RuntimeException 及其子类，其他的类默认不回滚；
     4.rollbackFor 的属性可以解决这个问题，rollbackFor = Exception.class 表示 Exception 及其子类的异常都会出发回滚，同时不影响 Error 的回滚。
+
+@Spring 注解
+  1.@SpringBootApplication 包含 @Configuration、@EnableAutoConfiguration、@ComponentScan，通常放在主类上；
+  2.@Controller 标志是一个控制器类，需要与 @RequestMapping 配合使用，通常做前后端分离的项目用这个注解比较少，因为后端只返回 json 数据结构，而不是页面；
+  3.@RestController 该注解是 @Controller 和 @ResponseBody 的组合注解；
+  4.@Service 标注该类是一个接口服务；
+  5.#@Autowired 当我需要从 bean 工程获取一个 bean 时，Spring 就自动为我们装配该标识为 @Autowired 的元素；
+  6.#@Resource 与 Autowired 获取相同的效果，不过该注解并不是 Spring 提供的，而是 j2ee 提供的，两者的差别是 Autowired 通过类型匹配，而 Resource 通过名称匹配；
+  7.@Configuration 配置文件注解；
+  8.@Value 读取 yaml 文件的注解，并可以设置默认值；
+  9.@Repository jpa 的 dao 注解，通过标注了该注解的类可以操作数据库；
+  10.@RequestMap 类注解，标明访问该接口的请求地址的开头应该是什么路径；
+  11.@GetMapping get 请求的缩写，备注说明；
+  12.@PostMapping post 请求的缩写，备注说明；
+  13.@PathVariable 路径分隔符变量，用于前端通过地址通配符给后端传递参数；
+  14.@RequestBody、@RequestParam 参数注解，通过在参数上标注该注解，前端通过 ? 后面传递参数；
+  15.@EnableConfigurationProperties 启用配置文件的注解，读取 yaml 文件内容到自定义的 bean 中；
+  16.@Componenl 组件注解；
+  17.@ConfigurationProperties 与 EnableConfigurationProperties 搭配使用，标注自定义对象中的字段是从 yaml 文件中的哪个接口开始匹配。
+
+  备注：普通风格与 Rest 风格
+  1.@RequestMapping(value = "", method = RequestMethod.GET) & @GetMapping(value = "");
+  2.@RequestMapping(value = "", method = RequestMethod.POST) & @PostMapping(value = "");
+  3.@RequestMapping(value = "", method = RequestMethod.PUT) & @PutMapping(value = "");
+  4.@RequestMapping(value = "", method = RequestMethod.DELETE) & @DeleteMapping(value = "");
