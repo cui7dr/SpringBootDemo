@@ -5,8 +5,10 @@ import com.cui.spr_boot_demo.entity.User;
 import com.cui.spr_boot_demo.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -87,4 +89,5 @@ public class UserController {
         this.userService.saveBiz();
         return "ok";
     }
+
 }
