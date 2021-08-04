@@ -58,7 +58,7 @@ JPA 的常用方法
   1.@RequestMapping(value = "", method = RequestMethod.GET) & @GetMapping(value = "");
   2.@RequestMapping(value = "", method = RequestMethod.POST) & @PostMapping(value = "");
   3.@RequestMapping(value = "", method = RequestMethod.PUT) & @PutMapping(value = "");
-  4.@RequestMapping(value = "", method = RequestMethod.DELETE) & @DeleteMapping(value = "");
+  4.@RequestMapping(value = "", method = RequestMethod.DELETE) & @DeleteMapping(value = "")。
 
 junit 常用的注解
   1.@RunWith：标识为 JUnit 的运行环境；
@@ -68,4 +68,10 @@ junit 常用的注解
   5.@AfterClass：针对所有测试，只执行一次，且必须为 static void，一般用于释放资源；
   6.@Before：每个测试方法前都会执行的方法；
   7.@After：每个测试方法前都会执行的方法；
-  8.@Ignore：忽略方法；
+  8.@Ignore：忽略方法。
+
+  Assert 方法使用
+    1.assertTrue/False 判定第一个条件是 true 还是 false；
+    2.assertEquals 接收两个参数，第一个是参数值，第二个是希望返回的值；
+    3.assertNotEquals 跟上面一个相反，相当于 if(param1 != param2)；
+    4.assertSame/NotSame 判定两个变量是否指向同一内存地址。
