@@ -75,3 +75,6 @@ junit 常用的注解
     2.assertEquals 接收两个参数，第一个是参数值，第二个是希望返回的值；
     3.assertNotEquals 跟上面一个相反，相当于 if(param1 != param2)；
     4.assertSame/NotSame 判定两个变量是否指向同一内存地址。
+
+拦截器、过滤器执行顺序，默认先执行过滤器，再执行拦截器；
+如果过滤器有多个，会根据过滤器的名词按照 A-Z 的排序先后执行，这是因为 @WebFilter 这个注解不支持执行顺序，当然也可以通过配置文件解决（WebConfig.java）。
