@@ -44,16 +44,11 @@
             <scope>test</scope>
         </dependency>
         <!-- 相关依赖已经存在 -->
-        <!-- <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-        </dependency> -->
+        </dependency>
         <!-- scheduled -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

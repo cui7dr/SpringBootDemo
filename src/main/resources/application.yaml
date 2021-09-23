@@ -27,7 +27,7 @@ user:
   age: 21
   birthday: 2001/02/02
   #map 的使用一，放对象中读取，并通过{}里面的 key:value 方式设置，通过","设置下一组 k:v
-  fruit1: {apple: 1, pear: 3}
+  fruit1: { apple: 1, pear: 3 }
   #map 的使用二，放对象中读取，并通过 key:value 设置，通过换行设置下一组 k:v
   fruit2:
     arange: 2
@@ -39,4 +39,8 @@ user:
     - cat
 #list 的使用二，使用 @Value 注解，不需要放到对象中，以","分隔
 animals2: tiger,cat,cow
+
+name1: 张三
+lesson1: SpringBoot
+desc1: ${name1}同学正在努力学习${lesson1}#占位符
 
