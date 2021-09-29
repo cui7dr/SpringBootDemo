@@ -26,7 +26,6 @@ public class GlobalExceptionHandler {
         ResultDto resultDto = new ResultDto();
         resultDto.setCode(0);
         resultDto.setMsg(ex.getMessage());
-        ;
         resultDto.setData(null);
         return resultDto;
     }

@@ -1,5 +1,6 @@
 package com.cui.spr_boot_demo.controller;
 
+import com.cui.spr_boot_demo.dao.MyException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,11 +34,11 @@ public class ExceptionDemoController {
         return "ok";
     }
 
-//    @GetMapping("testEx3")
-//    public String test3() throws Exception {
-//        if (true) {
-//            throw new RuntimeException("RuntimeException");
-//        }
-//        return "ok";
-//    }
+    @GetMapping("testEx3")
+    public String test3() throws MyException {//实际执行的是 GlobalExceptionHandler 中的异常
+        if (true) {
+            throw new RuntimeException("RuntimeException");
+        }
+        return "ok";
+    }
 }
